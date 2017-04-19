@@ -1,0 +1,37 @@
+{
+int fa(int n) {
+    int[3] a;
+    if (n == 2 || n == 0||n ==1) {
+        int c = 0;
+        while (c < 2) {
+            a[c] = 1;
+            c = c + 1;
+        }
+        a[c] = c;
+    }
+    //print a[0];
+    //print a[1];
+    //print a[2];
+
+    if (n == 0) {
+        return a[10];
+    } else if (n == 1){
+        return a[n];
+    } else if (n == 2){
+        return a[n];
+    } else {
+        return n * factorial(n - 1);
+    }
+    return n;
+}
+
+// main
+int inp = get();
+while (inp != 100) {
+    int k =  factorial(inp);
+    /*print k;*/
+    print "result:";
+    put(k1);
+    inp = get();
+}
+}
