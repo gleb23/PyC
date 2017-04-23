@@ -2,10 +2,10 @@ Language being interpreted is a subset of c++ language
 
 <Digit>::= 0|1|2|3|4|5|6|7|8|9
 <Letter>::= a-Z
-<Number>::= [–]<Digit>[{<Digit>}]
+<Number>::= [–]<Digit>*
 <StringConstant>::="{<Letter>|<Number>}"
-<Identifier>::= <letter>[{<letter >|<Number>}]
-<Type>::=<SimpleType>|<Array>
+<Identifier>::= <letter>(<letter >|<Number>)*
+<AbstractType>::=<SimpleType>|<Array>|void
 <SimpleType>::= int|bool|string
 <Array>::=<SimpleType>\[\]
 <Operation>::=<Operation_а>|<Operation_l>|<Operation_cmp>
@@ -15,7 +15,7 @@ Language being interpreted is a subset of c++ language
 <Instruction>::=[{<WhileCycle>|<If>|<Assignment>|<Print>|<Get>}]
 <WhileCycle>::= While(<Condition>) <Block>
 <If>::= if(<Condition>) <Block>
-<Expression>::=<Expression><Opearation><Expression>|<FunctionCall>|<Variable>|<Number>
+<Expression>::=<Expression><Operation><Expression>|<FunctionCall>|<Variable>|<Number>
 <Assignment>::=<Identifier> = <Expression>
 <Print>::= print <Expression>
 <Get>::= get <Expression>
