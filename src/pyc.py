@@ -117,7 +117,6 @@ class Executor(object):
 
     def execute(self):
         try:
-            os.system('cls')
             print 'PyC by G.Babii, A.Shevnina, S.Chupov, I.Lukianov\n'
             print '--------------- ----- -----------------'
             flowTree = Syntan(self.source).parse()
