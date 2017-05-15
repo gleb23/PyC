@@ -4,20 +4,27 @@ __author__ = 'hlib'
 
 import pyc.lexer as lx
 import unittest
+from parameterized import parameterized
 
 
 class TestLexer(unittest.TestCase):
-    def test_lexer(self):
-        source = "{\nint a = (3+2);\n{\nprint a;\n}\n}"
-        expected_tokens = ['{', 'int', 'a', '=', '(', '3', '+', '2', ')', ';', '{', 'print', 'a', ';', '}', '}']
-
+    @parameterized.expand([
+        ("simple",
+            "{\nint a = (3+2);\n{\nprint a;\n}\n}",
+            ['{', 'int', 'a', '=', '(', '3', '+', '2', ')', ';', '{', 'print', 'a', ';', '}', '}']),
+        ("simple one line",
+            "{int a = (3+2);{print a;}}",
+            ['{', 'int', 'a', '=', '(', '3', '+', '2', ')', ';', '{', 'print', 'a', ';', '}', '}']),
+        ("simple with random whitespaces",
+            "{    int      a    =(      3+2)       ;{  print a\n\n\n\n\n;                      }}",
+            ['{', 'int', 'a', '=', '(', '3', '+', '2', ')', ';', '{', 'print', 'a', ';', '}', '}']),
+    ])
+    def test_lexer(self, name, source, expected_tokens):
         tokens = []
-
         lexer = lx.Lexer(source)
         while lexer.next_available():
             tokens.append(lexer.next_token())
 
-        print tokens
         self.assertEquals([x for x,y in tokens], expected_tokens)
 
     def test_next_available(self):
