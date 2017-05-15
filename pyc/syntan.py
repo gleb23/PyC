@@ -5,7 +5,7 @@ from pyc.errs import UnexpectedIdentifierError, ExpressionError, UnknownIdentifi
 from pyc.lexer import Lexer
 from pyc import bricks
 
-__author__ = 'gleb23'
+__author__ = 'hlib'
 
 # = 3
 # if (a) {

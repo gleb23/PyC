@@ -1,4 +1,4 @@
-__author__ = 'gleb23'
+__author__ = 'hlib'
 
 class A(object):
     def foo(self):

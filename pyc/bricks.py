@@ -4,7 +4,7 @@ from pyc.errs import IndexOutOfBoundsError, TypeMismatchError
 from pyc import errs
 
 
-__author__ = 'gleb23'
+__author__ = 'hlib'
 
 
 class AbstractType(object):

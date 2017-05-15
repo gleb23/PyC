@@ -1,7 +1,7 @@
 from pyc.errs import UnknownIdentifierError, UnexpectedIdentifierError
 from pyc.syntan import Syntan
 
-__author__ = 'gleb23'
+__author__ = 'hlib'
 
 source = '''
 {

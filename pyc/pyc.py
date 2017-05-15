@@ -5,7 +5,7 @@ from pyc.errs import CompileError, RuntimeErr
 from pyc.syntan import Syntan
 
 
-__author__ = 'gleb23'
+__author__ = 'hlib'
 
 source = '''
 {

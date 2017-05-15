@@ -1,7 +1,7 @@
 from pyc.bricks import Function, Int, Void
 from pyc.errs import ClassCastError
 
-__author__ = 'gleb23'
+__author__ = 'hlib'
 
 class BuiltInFunction(Function):
     def __init__(self, name = None, parentBlock=None, params=None, return_type=None):
