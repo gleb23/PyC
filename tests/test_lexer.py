@@ -1,3 +1,5 @@
+from pyc.lexer import NextTokenNotAvailable
+
 __author__ = 'hlib'
 
 import pyc.lexer as lx
@@ -24,3 +26,5 @@ class TestLexer(unittest.TestCase):
         is_available = lexer.next_available()
 
         self.assertEquals(is_available, False)
+        with self.assertRaises(NextTokenNotAvailable):
+            lexer.next_token()

@@ -10,7 +10,7 @@ __author__ = 'hlib'
 
 #delimiters: ' ', '\n', '{', '}', ')', '(', '[', ']', '<', '>', '=', '!', '+', '-', '/', '\"', '\'', '%', '*'
 
-class NextTokenNotAvailable(object):
+class NextTokenNotAvailable():
     pass
 
 
