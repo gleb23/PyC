@@ -1,14 +1,6 @@
 __author__ = 'hlib'
 
-source = '''
-{
-int a = (3+2);
-{
-print a;
-}
-}
 
-'''
 # ss = ''' /*a*/
 
 
