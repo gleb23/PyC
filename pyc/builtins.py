@@ -1,5 +1,5 @@
-from src.bricks import Function, Int, Void
-from src.errs import ClassCastError
+from pyc.bricks import Function, Int, Void
+from pyc.errs import ClassCastError
 
 __author__ = 'gleb23'
 

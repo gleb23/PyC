@@ -1,5 +1,5 @@
-from src.errs import UnknownIdentifierError, UnexpectedIdentifierError
-from src.syntan import Syntan
+from pyc.errs import UnknownIdentifierError, UnexpectedIdentifierError
+from pyc.syntan import Syntan
 
 __author__ = 'gleb23'
 

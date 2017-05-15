@@ -1,7 +1,7 @@
 import copy
 
-from src.errs import IndexOutOfBoundsError, TypeMismatchError
-from src import errs
+from pyc.errs import IndexOutOfBoundsError, TypeMismatchError
+from pyc import errs
 
 
 __author__ = 'gleb23'

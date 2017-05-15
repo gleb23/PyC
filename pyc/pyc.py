@@ -1,8 +1,8 @@
 import os
 import sys
 
-from src.errs import CompileError, RuntimeErr
-from src.syntan import Syntan
+from pyc.errs import CompileError, RuntimeErr
+from pyc.syntan import Syntan
 
 
 __author__ = 'gleb23'

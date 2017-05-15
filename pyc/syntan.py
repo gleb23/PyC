@@ -1,9 +1,9 @@
-from src.bricks import Int, String, Bool, If, WhileLoop, ReturnExpression, SimpleType, AssignmentOperator, Function, FunctionCall, Block, \
+from pyc.bricks import Int, String, Bool, If, WhileLoop, ReturnExpression, SimpleType, AssignmentOperator, Function, FunctionCall, Block, \
     Sum,  ArrayMetaclass, AbstractArray
-from src.builtins import builtins_map
-from src.errs import UnexpectedIdentifierError, ExpressionError, UnknownIdentifierError, FunctionMustReturnSomethingError, EmptyBracketsAreNotAllowedError, ArrayMustHaveFixedSizeError, IdentifierAlreadyExistsError, NotArrayError, TypeMismatchError, IllegalArrayOperationError, EndOfFileReachedError, SameNameParameterError, WrongParamsFuncCallError, VariableCantBeVoidError, CompileError
-from src.lexer import Lexer
-from src import bricks
+from pyc.builtins import builtins_map
+from pyc.errs import UnexpectedIdentifierError, ExpressionError, UnknownIdentifierError, FunctionMustReturnSomethingError, EmptyBracketsAreNotAllowedError, ArrayMustHaveFixedSizeError, IdentifierAlreadyExistsError, NotArrayError, TypeMismatchError, IllegalArrayOperationError, EndOfFileReachedError, SameNameParameterError, WrongParamsFuncCallError, VariableCantBeVoidError, CompileError
+from pyc.lexer import Lexer
+from pyc import bricks
 
 __author__ = 'gleb23'
 
