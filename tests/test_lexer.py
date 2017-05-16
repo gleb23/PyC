@@ -22,6 +22,9 @@ class TestLexer(unittest.TestCase):
             "a[2-2/3*7%2]=0;",
             ['a', '[', '2', '-', '2', '/', '3', '*', '7', '%', '2', ']', '=', '0', ';']
          ),
+        ("comments",
+            "/*hi*/there//+++",
+            ['/*hi*/', 'there', '//+++'])
 
         #FIXME
         # ("string literal",
