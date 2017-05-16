@@ -17,6 +17,11 @@ class TestLexer(unittest.TestCase):
         ("simple with random whitespaces",
             "{    int      a    =(      3+2)       ;{  print a\n\n\n\n\n;                      }}",
             ['{', 'int', 'a', '=', '(', '3', '+', '2', ')', ';', '{', 'print', 'a', ';', '}', '}']),
+
+        ("expression with array",
+            "a[2-2/3*7%2]=0;",
+            ['a', '[', '2', '-', '2', '/', '3', '*', '7', '%', '2', ']', '=', '0', ';']
+         ),
     ])
     def test_lexer(self, name, source, expected_tokens):
         tokens = []
