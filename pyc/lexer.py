@@ -112,26 +112,3 @@ class Lexer(object):
 
     def next_available(self):
         return self.current_pos < len(self.source)
-
-# class PreprocessedLexer(Lexer):
-#     def __init__(self, token_list):
-#         super(PreprocessedLexer, self).__init__()
-#         self.token_list = token_list
-#         self.current_token_number = 0
-#
-#     def next_token(self):
-#         self.current_token_number += 1
-#         return self.token_list[self.current_token_number - 1]
-#
-#     def next_available(self):
-#         return self.current_token_number < len(self.token_list)
-
-# lexer = Lexer(source)
-# while lexer.next_available():
-#     print lexer.next_token()
-
-
-
-
-
-
