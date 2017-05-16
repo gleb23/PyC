@@ -22,6 +22,14 @@ class TestLexer(unittest.TestCase):
             "a[2-2/3*7%2]=0;",
             ['a', '[', '2', '-', '2', '/', '3', '*', '7', '%', '2', ']', '=', '0', ';']
          ),
+
+        #FIXME
+        # ("string literal",
+        #      '="hi"',
+        #      ['=', '"hi"']),
+        # ("string literal",
+        #      'house*car',
+        #      ['house', '*', 'car']),
     ])
     def test_lexer(self, name, source, expected_tokens):
         tokens = []
