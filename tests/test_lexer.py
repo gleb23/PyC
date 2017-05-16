@@ -24,9 +24,14 @@ class TestLexer(unittest.TestCase):
          ),
         ("comments",
             "/*hi*/there//+++",
-            ['/*hi*/', 'there', '//+++'])
-
-        #FIXME
+            ['/*hi*/', 'there', '//+++']),
+        # FIXME
+        # ("2 double signs followed by digit together",
+        #     "+=++3",
+        #     ['+=', '++', '3']),
+        # ("2 double signs followed by digit with whitespaces",
+        #      "*=     --  \n  0",
+        #      ['*=', '--', '0'])
         # ("string literal",
         #      '="hi"',
         #      ['=', '"hi"']),
