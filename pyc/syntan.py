@@ -1224,14 +1224,12 @@ class Syntan(object):
 
     def parse(self):
         mainFunction = Function()
-        lx = lexer.Lexer(self.source)
+        lexemes = lexer.scan(self.source)
         curDataSet = CurrentDataSet()
         curDataSet.current_block = mainFunction.block
         state = InitialState()
 
-        while lx.next_available():
-            new_token, position = lx.next_token()
-
+        for new_token, position in lexemes:
             if new_token == '{':
                 process = state.process_opening_curly_bracket
             elif new_token == '}':

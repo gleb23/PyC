@@ -23,35 +23,22 @@ class TestLexer(unittest.TestCase):
             ['a', '[', '2', '-', '2', '/', '3', '*', '7', '%', '2', ']', '=', '0', ';']
          ),
         ("comments",
-            "/*hi*/there//+++",
-            ['/*hi*/', 'there', '//+++']),
-        # FIXME
-        # ("2 double signs followed by digit together",
-        #     "+=++3",
-        #     ['+=', '++', '3']),
-        # ("2 double signs followed by digit with whitespaces",
-        #      "*=     --  \n  0",
-        #      ['*=', '--', '0'])
-        # ("string literal",
-        #      '="hi"',
-        #      ['=', '"hi"']),
-        # ("string literal",
-        #      'house*car',
-        #      ['house', '*', 'car']),
+            "/*hi*/there//+++\n1",
+            ['there', '1']),
+        ("2 double signs followed by digit together",
+            "+=++3",
+            ['+=', '++', '3']),
+        ("2 double signs followed by digit with whitespaces",
+             "*=     --  \n  0",
+             ['*=', '--', '0']),
+        ("string literal",
+             '="hi"',
+             ['=', '"hi"']),
+        ("string literal",
+             'house*car',
+             ['house', '*', 'car']),
     ])
     def test_lexer(self, name, source, expected_tokens):
-        tokens = []
-        lexer = lx.Lexer(source)
-        while lexer.next_available():
-            tokens.append(lexer.next_token())
+        tokens = [tokens for tokens, _ in lx.scan(source)]
 
-        self.assertEquals([x for x,y in tokens], expected_tokens)
-
-    def test_next_available(self):
-        lexer = lx.Lexer("}")
-        lexer.next_token()
-        is_available = lexer.next_available()
-
-        self.assertEquals(is_available, False)
-        with self.assertRaises(lx.NextTokenNotAvailable):
-            lexer.next_token()
+        self.assertEquals(tokens, expected_tokens)
