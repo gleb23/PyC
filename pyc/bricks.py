@@ -1,7 +1,6 @@
 import copy
 
-from pyc.errs import IndexOutOfBoundsError, TypeMismatchError
-from pyc import errs
+from errs import IndexOutOfBoundsError, TypeMismatchError
 
 
 __author__ = 'hlib'
@@ -405,7 +404,7 @@ class Div(BinaryOperator):
             try:
                 return Int(a.to_Int().value / b.to_Int().value)
             except ZeroDivisionError:
-                raise errs.ZeroDivisionError()
+                raise ZeroDivisionError()
 
     def get_type(self):
         a = self.exp1.get_type()

@@ -1,5 +1,5 @@
-from pyc.errs import UnknownIdentifierError, UnexpectedIdentifierError
-from pyc.syntan import Syntan
+from errs import UnknownIdentifierError, UnexpectedIdentifierError
+from syntan import Syntan
 
 __author__ = 'hlib'
 

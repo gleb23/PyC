@@ -1,9 +1,8 @@
 import os
 import sys
 
-from pyc.errs import CompileError, RuntimeErr
-from pyc.syntan import Syntan
-
+from errs import CompileError, RuntimeErr
+from syntan import Syntan
 
 __author__ = 'hlib'
 

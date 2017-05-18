@@ -1,9 +1,14 @@
-from pyc.bricks import Int, String, Bool, If, WhileLoop, ReturnExpression, SimpleType, AssignmentOperator, Function, FunctionCall, Block, \
-    Sum,  ArrayMetaclass, AbstractArray
-from pyc.builtins import builtins_map
-from pyc.errs import UnexpectedIdentifierError, ExpressionError, UnknownIdentifierError, FunctionMustReturnSomethingError, EmptyBracketsAreNotAllowedError, ArrayMustHaveFixedSizeError, IdentifierAlreadyExistsError, NotArrayError, TypeMismatchError, IllegalArrayOperationError, EndOfFileReachedError, SameNameParameterError, WrongParamsFuncCallError, VariableCantBeVoidError, CompileError
-from pyc.lexer import Lexer
-from pyc import bricks
+from bricks import Int, String, Bool, If, WhileLoop, ReturnExpression, SimpleType, AssignmentOperator, \
+    Function, FunctionCall, Block, Sum, ArrayMetaclass, AbstractArray, ArrayElement, PrintOperator, Minus, Mult, Div, \
+    Or, And, Not, CompOperator, Mod
+from errs import UnexpectedIdentifierError, ExpressionError, UnknownIdentifierError, \
+    FunctionMustReturnSomethingError, EmptyBracketsAreNotAllowedError, ArrayMustHaveFixedSizeError, \
+    IdentifierAlreadyExistsError, NotArrayError, TypeMismatchError, IllegalArrayOperationError, \
+    EndOfFileReachedError, SameNameParameterError, WrongParamsFuncCallError, VariableCantBeVoidError, \
+    CompileError
+import lexer
+import builtin
+import bricks
 
 __author__ = 'hlib'
 
@@ -29,7 +34,7 @@ def searchIdentifier(current_block, identifier, only_this_scope=False):
     searches for identifier <code>identifier</code> in current scope or outer
     '''
     if current_block is None:
-        return builtins_map.get(identifier)
+        return builtin.builtins_map.get(identifier)
     if current_block.context.functions.has_key(identifier):
         return current_block.context.functions[identifier]
     if current_block.context.variables.has_key(identifier):
@@ -68,31 +73,31 @@ def build_expression_tree(reverse_expression_list, bracket_state = 0):
                     if reverse_expression_list[ind] == ('+', bracket_state):
                         op = Sum()
                     elif reverse_expression_list[ind] == ('-', bracket_state):
-                        op = bricks.Minus()
+                        op = Minus()
                     elif reverse_expression_list[ind] == ('*', bracket_state):
-                        op = bricks.Mult()
+                        op = Mult()
                     elif reverse_expression_list[ind] == ('/', bracket_state):
-                        op = bricks.Div()
+                        op = Div()
                     elif reverse_expression_list[ind] == ('%', bracket_state):
-                        op = bricks.Mod()
+                        op = Mod()
                     elif reverse_expression_list[ind] == ('<', bracket_state):
-                        op = bricks.CompOperator(less=True)
+                        op = CompOperator(less=True)
                     elif reverse_expression_list[ind] == ('<=', bracket_state):
-                        op = bricks.CompOperator(less=True, equals=True)
+                        op = CompOperator(less=True, equals=True)
                     elif reverse_expression_list[ind] == ('>', bracket_state):
-                        op = bricks.CompOperator(more=True)
+                        op = CompOperator(more=True)
                     elif reverse_expression_list[ind] == ('>=', bracket_state):
-                        op = bricks.CompOperator(more=True, equals=True)
+                        op = CompOperator(more=True, equals=True)
                     elif reverse_expression_list[ind] == ('==', bracket_state):
-                        op = bricks.CompOperator(equals=True)
+                        op = CompOperator(equals=True)
                     elif reverse_expression_list[ind] == ('!=', bracket_state):
-                        op = bricks.CompOperator(less=True, more=True)
+                        op = CompOperator(less=True, more=True)
                     elif reverse_expression_list[ind] == ('!', bracket_state):
-                        op = bricks.Not()
+                        op = Not()
                     elif reverse_expression_list[ind] == ('&&', bracket_state):
-                        op = bricks.And()
+                        op = And()
                     elif reverse_expression_list[ind] == ('||', bracket_state):
-                        op = bricks.Or()
+                        op = Or()
                     else:
                         raise NotImplementedError
                     return split(reverse_expression_list, ind, op, bracket_state)
@@ -214,7 +219,7 @@ class AfterExpressionOpenBracket(State):
         type = searchIdentifier(data_set.current_block, data_set.current_identifier)
         if type is None:
             raise UnknownIdentifierError()
-        if isinstance(type, bricks.AbstractArray):
+        if isinstance(type, AbstractArray):
             data_set.current_variable = type
             return AfterArrayAtStartState(), data_set
         elif isinstance(type, SimpleType):
@@ -644,7 +649,7 @@ class InitialState(State):
         if isinstance(mapped_to_id, SimpleType):
             data_set.current_variable = mapped_to_id
             return AfterSVariableAtStartState(), data_set
-        elif isinstance(mapped_to_id, bricks.AbstractArray):
+        elif isinstance(mapped_to_id, AbstractArray):
             # assignment
             data_set.current_variable = mapped_to_id
             data_set.current_expression = Subexpression()
@@ -671,7 +676,7 @@ class InitialState(State):
         return AfterSTypeInDeclState(), data_set
 
     def process_print(self, data_set):
-        printOperator = bricks.PrintOperator()
+        printOperator = PrintOperator()
         data_set.current_expression = Subexpression()
         data_set.current_expression.expression_type = 'print_expression'
         data_set.subexpressions.append(data_set.current_expression)
@@ -890,7 +895,7 @@ class AfterArrayAtStartState(State):
             data_set.current_expression.bracket_state = 0
             data_set.current_expression.expression_list = []
 
-        array_element = bricks.ArrayElement()
+        array_element = ArrayElement()
         array_element.array = data_set.current_variable
         data_set.current_expression.expression_list.insert(0, (array_element, data_set.current_expression.bracket_state))
         data_set.current_expression = Subexpression()
@@ -1136,7 +1141,7 @@ class AfterNameInDeclState(State):
     def process_semicolon(self, data_set):
         #it's array decl
         data_set.current_variable = eval("bricks." + data_set.var_type.capitalize()+'()')
-        data_set.current_variable = bricks.ArrayMetaclass(data_set.current_variable.__class__, data_set.current_number)()
+        data_set.current_variable = ArrayMetaclass(data_set.current_variable.__class__, data_set.current_number)()
         data_set.current_block.context.variables[data_set.current_identifier] = data_set.current_variable
         return InitialState(), data_set
 
@@ -1166,7 +1171,7 @@ class AfterNameInSTypeDeclState(State):
         return AfterFuncDeclOpenBracketState(), data_set
 
     def process_semicolon(self, data_set):
-        if data_set.current_variable.get_type() == bricks.Void:
+        if data_set.current_variable.get_type() == Void:
             raise VariableCantBeVoidError()
         else:
             data_set.current_block.context.variables[data_set.current_identifier] = data_set.current_variable
@@ -1219,13 +1224,13 @@ class Syntan(object):
 
     def parse(self):
         mainFunction = Function()
-        lexer = Lexer(self.source)
+        lx = lexer.Lexer(self.source)
         curDataSet = CurrentDataSet()
         curDataSet.current_block = mainFunction.block
         state = InitialState()
 
-        while lexer.next_available():
-            new_token, position = lexer.next_token()
+        while lx.next_available():
+            new_token, position = lx.next_token()
 
             if new_token == '{':
                 process = state.process_opening_curly_bracket
